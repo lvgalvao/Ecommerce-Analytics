@@ -2,7 +2,6 @@ from pyspark.sql import SparkSession
 from delta import *
 import os
 
-
 class CSVToDeltaWriter:
     """
     Classe para converter arquivos CSV em Delta Tables usando PySpark.
@@ -87,8 +86,8 @@ class CSVToDeltaWriter:
 
 
 if __name__ == "__main__":
-    input_dirs = ["data/input_marketing", "data/input_olist"]
-    output_dir = "data/output_delta"
+    input_dirs = ["data/external/input_marketing", "data/external/input_olist"]
+    output_dir = "data/lakehouse"
 
     writer = CSVToDeltaWriter(input_dirs, output_dir)
     writer.execute()
