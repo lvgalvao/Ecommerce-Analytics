@@ -6,7 +6,74 @@ O objetivo deste projeto é realizar uma análise exploratória de dados de uma 
 
 Além disso, vamos construir um Lakehouse utilizando o Delta Lake, que é uma tecnologia open source desenvolvida pela Databricks, que combina os melhores aspectos dos Data Lakes e Data Warehouses, permitindo que os dados sejam armazenados em um formato colunar altamente otimizado, com suporte a ACID transactions, schema enforcement e versioning.
 
-### Objetivos secundários
+![pic/delta-lake.png](pic/lakehouse.png)
+
+## Índice
+
+- [Ecommerce Analytics](#ecommerce-analytics)
+  - [Objetivo](#objetivo)
+  - [Índice](#índice)
+  - [Lakehouse](#lakehouse)
+    - [Pyspark](#pyspark)
+    - [Delta Lake](#delta-lake)
+    - [ETL](#etl)
+    - [Padrões e Estruturas Utilizadas](#padrões-e-estruturas-utilizadas)
+    - [Conclusão](#conclusão)
+    - [Commites semânticos e pre-commit](#commites-semânticos-e-pre-commit)
+
+## Lakehouse
+
+### Pyspark
+
+O PySpark é a API do Spark para Python. Ele permite que você execute o Spark usando o Python como sua linguagem principal. O PySpark pode ser usado para trabalhar com conjuntos de dados distribuídos usando o DataFrame API do Spark e o SQL.
+
+Para instalar o PySpark, vamos utilizar o [Poetry](https://python-poetry.org/)
+
+```bash
+poetry add pyspark
+```
+
+### Delta Lake
+
+Delta Lake é uma tecnologia open source desenvolvida pela Databricks, que combina os melhores aspectos dos Data Lakes e Data Warehouses, permitindo que os dados sejam armazenados em um formato colunar altamente otimizado, com suporte a ACID transactions, schema enforcement e versioning.
+
+Para instalar o Delta Lake no Spark, vamos utilizar o delta-spark
+
+
+```bash
+poetry add delta-spark
+```
+
+### ETL
+
+O arquivo Python `src/etl` define uma classe `CSVToDeltaWriter` para realizar operações de ETL (Extract, Transform, Load). O objetivo principal dessa classe é ler arquivos CSV de diretórios específicos e gravar os dados como Delta Tables. Aqui está um resumo dos padrões e funcionalidades usadas:
+
+### Padrões e Estruturas Utilizadas
+
+1. **Programação Orientada a Objetos (POO)**: O código utiliza a abordagem de POO com a definição da classe `CSVToDeltaWriter`. Esta classe encapsula métodos e atributos relacionados à tarefa de leitura e gravação de dados.
+    
+2. **Inicialização de Atributos no Construtor**: No método `__init__`, são inicializados dois atributos - `input_dirs` e `output_dir`. Estes atributos armazenam os diretórios de entrada e saída, respectivamente.
+    
+3. **Método para Criação de Diretórios**: O método `create_output_dir` verifica se o diretório de saída existe e, se não, cria-o. Isso garante que o diretório de saída esteja disponível antes de tentar escrever os dados.
+    
+4. **Leitura de Arquivos CSV**: O método `read_csv` utiliza o Spark para ler arquivos CSV, com a leitura dos cabeçalhos e inferência de esquema.
+    
+5. **Escrita em Formato Delta**: `write_to_delta` é um método que escreve DataFrames do Spark em formato Delta no caminho especificado. Ele usa a sobrescrita (`overwrite`) como modo de gravação.
+    
+6. **Execução Principal no Método `execute`**: Este método percorre os diretórios de entrada, lê cada arquivo CSV, transforma-os em DataFrames do Spark, e então os grava como Delta Tables.
+    
+7. **Configuração do SparkSession**: Utiliza `SparkSession` com configurações específicas para Delta Lake, como extensões e catálogo.
+    
+8. **Encerramento da Sessão Spark**: Após a execução das operações ETL, a sessão do Spark é encerrada com `spark.stop()`.
+    
+9. **Execução Condicional com `if __name__ == "__main__"`**: Este padrão é usado para executar o código quando o script é rodado diretamente, e não quando importado como um módulo.
+    
+
+### Conclusão
+
+O script é um exemplo claro de um pipeline de ETL em Python usando Spark e Delta Lake, com foco na leitura de dados de arquivos CSV e gravação em formato Delta. Ele segue boas práticas de programação em Python, como encapsulamento em classes, e demonstra a integração eficiente com ferramentas de processamento de dados como Apache Spark e Delta Lake.
+
+### Commites semânticos e pre-commit
 
 1) Trabalhar com commites semânticos (como Conventional Commits)
 

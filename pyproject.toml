@@ -8,6 +8,8 @@ packages = [{ include = "ecommerce_analytics" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pyspark = "^3.5.0"
+delta-spark = "^3.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
