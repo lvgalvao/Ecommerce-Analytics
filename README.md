@@ -89,4 +89,12 @@ Para instalar os hooks do pre-commit, vamos executar o seguinte comando:
 pre-commit install --hook-type commit-msg
 ```
 
-Agora, sempre que executarmos o comando `git commit`, o pre-commit vai executar o commitizen, que vai nos guiar para fazer o commit semântico.
+Agora, sempre que executarmos o comando `cz commit`, vamos ser guiados para fazer o commit semântico.
+
+![pic/pre-commit02.png](pic/pre-commit02.png)
+
+Se tentarmos fazer um commit sem ser semântico, vamos receber uma mensagem de erro
+
+![pic/pre-commit01.png](pic/pre-commit01.png)
+
+Dessa forma, garantimos que todos os commits vão seguir a convenção, e que os commits vão ser úteis para o projeto.
