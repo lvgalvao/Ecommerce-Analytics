@@ -10,6 +10,9 @@ packages = [{ include = "ecommerce_analytics" }]
 python = "^3.11"
 pyspark = "^3.5.0"
 delta-spark = "^3.0.0"
+pydantic = "^2.5.2"
+pandera = "^0.17.2"
+ruff = "^0.1.6"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1,6 +1,7 @@
 from pyspark.sql import SparkSession
-from delta import *
+from delta import configure_spark_with_delta_pip
 import os
+
 
 class CSVToDeltaWriter:
     """
