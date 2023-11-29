@@ -20,8 +20,11 @@ git commit -m "agora vai… arrumei mais coisas, mas agora compila"
 
 O problema com esses commits é que eles não dizem nada sobre o que foi feito. Eles não são úteis para ninguém que não seja o autor do commit, e mesmo assim, só serão úteis por um curto período de tempo.
 
-O que são commits semânticos?
-Commits semânticos são uma convenção para adicionar metadados (valor) aos commits. Para ele seja útil para outros usuários, para o próprio autor e para o projeto de maneira geral.
+Motivos para usar:
+Commits semânticos são uma convenção para adicionar metadados (valor) aos commits. Para ele seja útil para outros usuários, para o próprio autor e para o projeto de maneira geral. Em outras palavras, o commit semântico é uma forma de padronizar os commits, para que eles sejam úteis para o projeto. No longo prazo, isso vai facilitar a manutenção do projeto, e vai ajudar a entender o que foi feito em cada commit, diminuir o tempo de onboarding de novos desenvolvedores, e facilitar a busca por bugs.
+
+Motivos para não usar:
+Preguiça, falta de conhecimento, falta de tempo, falta de disciplina, etc.
  
 O formato é o seguinte:
 ```bash
