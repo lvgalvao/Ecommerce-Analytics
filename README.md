@@ -10,8 +10,18 @@ Além disso, vamos construir um Lakehouse utilizando o Delta Lake, que é uma te
 
 1) Trabalhar com commites semânticos (como Conventional Commits)
 
+O que NÃO são commits semânticos:
+
+```bash
+git commit -m "first commit"
+git commit -m "arrumei alguns arquivos,  vai funcionar agora"
+git commit -m "agora vai… arrumei mais coisas, mas agora compila"
+```
+
+O problema com esses commits é que eles não dizem nada sobre o que foi feito. Eles não são úteis para ninguém que não seja o autor do commit, e mesmo assim, só serão úteis por um curto período de tempo.
+
 O que são commits semânticos?
-Commits semânticos são uma convenção para adicionar metadados aos commits. O objetivo é facilitar a criação de ferramentas automatizadas para analisar o histórico do projeto. 
+Commits semânticos são uma convenção para adicionar metadados (valor) aos commits. Para ele seja útil para outros usuários, para o próprio autor e para o projeto de maneira geral.
  
 O formato é o seguinte:
 ```bash
@@ -42,16 +52,41 @@ Exemplo 3:
 docs: adicionado documentação sobre Delta Lake
 ```
 
-Para isso vamos usar a seguinte estratégia
+O grande desafio é fazer com que todos os desenvolvedores sigam essa convenção. Para isso, vamos automatizar o processo de commit, utilizando o [Commitizen](https://github.com/commitizen-tools/commitizen) e uma ferramenta de [pre-commit](https://pre-commit.com/) para garantir que os commits sejam feitos de acordo com a convenção.
 
-Vamos utilizar o [Commitizen](https://github.com/commitizen-tools/commitizen) para padronizar os commits.
+Para instalar o Commitizen, vamos utilizar o [Poetry](https://python-poetry.org/)
 
 ```bash
 poetry add commitizen --group dev
 ```
 
-Na maior parte do tempo só vamos usar o comando `cz bump` para fazer os commits
+Na maior parte do tempo só vamos usar o comando `cz commit` para fazer os commits
 
 ```bash
-cz bump
+cz commit
 ```
+
+Para garantir que não vamos esquecer do commit semantico, vamos utilizar o [pre-commit](https://pre-commit.com/)
+
+```bash
+poetry add pre-commit --group dev
+```
+
+Para configurar o pre-commit, vamos criar um arquivo `.pre-commit-config.yaml` na raiz do projeto, com o seguinte conteúdo:
+
+```yaml
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: master
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+```
+
+Para instalar os hooks do pre-commit, vamos executar o seguinte comando:
+
+```bash
+pre-commit install --hook-type commit-msg
+```
+
+Agora, sempre que executarmos o comando `git commit`, o pre-commit vai executar o commitizen, que vai nos guiar para fazer o commit semântico.
